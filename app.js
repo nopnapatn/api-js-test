@@ -3,6 +3,7 @@ const bodyParser = require("body-parser")
 const placesRoutes = require("./routes/places-route")
 const usersRoutes = require("./routes/users-route")
 const HttpError = require("./models/http-error")
+const mongoose = require("mongoose")
 const app = express()
 
 app.use(bodyParser.json())
@@ -22,4 +23,12 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || "An unknown error occurred!" })
 })
 
-app.listen(4000)
+const url = ""
+mongoose
+  .connect(url)
+  .then(() => {
+    app.listen(4000)
+  })
+  .catch((e) => {
+    console.log(e)
+  })
